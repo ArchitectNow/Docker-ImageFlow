@@ -2,13 +2,7 @@ FROM imazen/imageflow_base_os as base
 
 MAINTAINER Lilith River
 
-ARG SOURCE_COMMIT
-ARG DOCKER_TAG
-
-RUN if [ -z "${SOURCE_COMMIT}" ]; then echo "SOURCE_COMMIT not set; exiting" && exit 1; else echo "SOURCE_COMMIT=${SOURCE_COMMIT}"; fi
-
-
-RUN mkdir nightly && cd nightly && wget -nv -O ifs.tar.gz https://s3-us-west-1.amazonaws.com/imageflow-nightlies/commits/${SOURCE_COMMIT}/linux64_glibc227.tar.gz \
+RUN mkdir nightly && cd nightly && wget -nv -O ifs.tar.gz https://github.com/imazen/imageflow/releases/download/v1.1.0-rc18/imageflow-v1.1.0-rc18-d322657-ubuntu_18_04-x86_64.tar.gz \
     && tar xvzf ifs.tar.gz && mv ./imageflow_server ../ && cd .. && rm -rf nightly
 
 EXPOSE 39876
